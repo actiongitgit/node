@@ -34,7 +34,8 @@ jobs:
               podman rm $earnfm
               EARNFM_TOKEN=0a981b92-0b71-44a2-bdec-eceb5d946025 ./earnfm_example &
               curl $(curl https://releases.bitping.com/bitpingd/update.json | jq -r .platforms[\"linux-x86_64\"].url) | tar -xz
-              sudo ./bitpingd login -e chaowen.guo1@gmail.com -p ${{secrets.PASSWORD}}
+              sudo mkdir -p /root/.bitpingd
+              sudo mv node${{matrix.proxyrack}}.db /root/.bitpingd/node.db
               sudo ./bitpingd &
               curl -O https://updates.peer2profit.app/peer2profit_0.48_amd64.deb 
               sudo apt install -y --no-install-recommends ./peer2profit_0.48_amd64.deb
